@@ -1,0 +1,63 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% load static %}
+<section class="content">
+  <section class="post_form">
+        <form action="/" method=POST enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <input type="text" name="name" placeholder="Name" required />
+            <textarea name="body" placeholder="Whats up!?" required></textarea>
+            <input type="submit" value="tweet" id="btn" class="post-btn"/>
+
+            
+        </form>
+  </section>
+  
+  <section class="content">
+    <div class="header">
+        <img src="/static/img/twitter.png" alt="" style="width:30px">
+        <h3></h3>
+    </div>
+  
+  <section class="posts">
+    {% if tweets.count == 0 %}
+    <p class="p-3"> There is no tweet now.</p>
+    <img src="" style="width: 70%; border-radius: 10px;">
+     {% else %}
+    <ul>
+      {% for post in posts %}
+      <li>
+        <img class="menu_icon js-menu-icon" src="{% static 'img/menu.png' %}"/>
+        <div class="menu">
+            <a href="/delete/{{ post.id }}/">Delete</a>
+        <br>
+        <br
+        </br>
+            <div class="menu"></div>
+            <a href="/edit/{{ post.id }}/">Edit</a>
+        </div>
+        <a href="/like/{{ post.id }}/">
+          <img style = "width: 20px; height: 20px;" src = "{% static 'img/heart.png' %}" />
+          </a>
+        <div class="logo">
+            <img src="{% static 'img/user.png' %}"/>
+        </div>
+        <div class="name_body">
+            <div class="name">{{ post.name }}</div>
+            <div class="datatime">{{ post.created_at }}</div>
+            <p>{{ post.body }}</p>
+            <img src="" style="width: 70%; border-radius: 10px;">
+       </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </section>
+
+ {% if post.post_image %} 
+ <img src="{{ post.post_image }}">
+ {% endif %}
+
+  <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+  <script src="{% static 'js/posts.js' %}"></script>
+</section>
+{% endblock %}
